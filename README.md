@@ -14,3 +14,5 @@ Using fivemanage to upload images: https://www.fivemanage.com/upload
 # Commands
 - /newmenu - To create a new menu.
 - /viewmenus - To view your current business menus.
+
+**You have permission to use this in your server and edit for your personal needs but are not allowed to redistribute.**
