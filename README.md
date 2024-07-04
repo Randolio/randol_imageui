@@ -7,7 +7,7 @@ You can blacklist jobs in the sv_config and input a webhook to keep track of who
 https://streamable.com/ioo5b2
 
 # Requirements
-Ox_lib: https://github.com/overextended/ox_lib/releases/
+ox_lib: https://github.com/overextended/ox_lib/releases/
 
 Using fivemanage to upload images: https://www.fivemanage.com/upload
 
