@@ -126,7 +126,7 @@ RegisterNetEvent('randol_imageui:client:createNew', function()
 
     if not response then return end
 
-    if not string.match(response[2], 'https://r2.fivemanage.com/pub/') then
+    if not string.match(response[2], 'https://r2.fivemanage.com/') then
         return DoNotification('Must use a valid fivemanage upload link.', 'error')
     end
     
