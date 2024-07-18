@@ -120,14 +120,14 @@ RegisterNetEvent('randol_imageui:client:createNew', function()
             required = true,
             icon = 'fa-solid fa-link',
             placeholder = 'Example: https://r2.fivemanage.com/pub/CUM.png',
-            description = 'Upload your menu image to https://www.fivemanage.com/upload.', 
+            description = 'Upload your menu image to a valid image host.', 
         },
     })
 
     if not response then return end
 
-    if not string.match(response[2], 'https://r2.fivemanage.com/') then
-        return DoNotification('Must use a valid fivemanage upload link.', 'error')
+    if not (string.find(response[2], '.png') or string.find(response[2], '.jpg')) then
+        return DoNotification('Must use a link ending in .png or .jpg.', 'error')
     end
     
     TriggerServerEvent('randol_imageui:server:createMenu', response[1], response[2], finalCoords)
