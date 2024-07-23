@@ -91,7 +91,9 @@ lib.addCommand('viewmenus', { help = 'Manage current job menus.'}, function(sour
 end)
 
 function OnPlayerLoaded(source)
-    TriggerClientEvent('randol_imageui:client:setLocations', source, Locations)
+    SetTimeout(2000, function()
+        TriggerClientEvent('randol_imageui:client:setLocations', source, Locations)
+    end)
 end
 
 AddEventHandler('onResourceStart', function(resource)
