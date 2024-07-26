@@ -9,8 +9,6 @@ https://streamable.com/ioo5b2
 # Requirements
 ox_lib: https://github.com/overextended/ox_lib/releases/
 
-Using fivemanage to upload images: https://www.fivemanage.com/upload
-
 # Commands
 - /newmenu - To create a new menu.
 - /viewmenus - To view your current business menus.
