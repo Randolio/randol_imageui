@@ -72,23 +72,42 @@ end)
 function toggleZones(bool)
     if bool then
         for zone, data in pairs(Locations) do
-            exports['qb-target']:AddCircleZone(zone, vec3(data.coords.x, data.coords.y, data.coords.z), 0.7, {
-                name = zone,
-                useZ = true,
-                debugPoly = false,
-            }, {
-                options =
-                {
+            if GetResourceState('ox_target') == 'started' then
+                exports.ox_target:addSphereZone({
+                    name = zone,
+                    coords = vec3(data.coords.x, data.coords.y, data.coords.z),
+                    radius = 0.7,
+                    debug = false,
+                    options = {
+                        {
+                            icon = 'fa-solid fa-hand',
+                            label = data.label,
+                            onSelect = function()
+                                showImage(data.link)
+                            end,
+                            distance = 2.5,
+                        },      
+                    }
+                })
+            else
+                exports['qb-target']:AddCircleZone(zone, vec3(data.coords.x, data.coords.y, data.coords.z), 0.7, {
+                    name = zone,
+                    useZ = true,
+                    debugPoly = false,
+                }, {
+                    options =
                     {
-                        icon = 'fa-solid fa-hand',
-                        label = data.label,
-                        action = function()
-                            showImage(data.link)
-                        end,
+                        {
+                            icon = 'fa-solid fa-hand',
+                            label = data.label,
+                            action = function()
+                                showImage(data.link)
+                            end,
+                        },
                     },
-                },
-                distance = 2.5
-            })
+                    distance = 2.5
+                })
+            end
             menuZones[#menuZones+1] = zone
         end
     else
@@ -172,22 +191,41 @@ end)
 RegisterNetEvent('randol_imageui:client:addZone', function(zone)
     if GetInvokingResource() or not hasPlyLoaded() then return end
 
-    exports['qb-target']:AddCircleZone(zone.id, vec3(zone.coords.x, zone.coords.y, zone.coords.z), 0.7, {
-        name = zone.id,
-        useZ = true,
-        debugPoly = false,
-    }, {
-        options = {
-            {
-                icon = 'fa-solid fa-hand',
-                label = zone.label,
-                action = function()
-                    showImage(zone.link)
-                end,
+    if GetResourceState('ox_target') == 'started' then
+        exports.ox_target:addSphereZone({
+            name = zone.id,
+            coords = vec3(zone.coords.x, zone.coords.y, zone.coords.z),
+            radius = 0.7,
+            debug = false,
+            options = {
+                {
+                    icon = 'fa-solid fa-hand',
+                    label = zone.label,
+                    onSelect = function()
+                        showImage(zone.link)
+                    end,
+                    distance = 2.5,
+                },      
+            }
+        })
+    else
+        exports['qb-target']:AddCircleZone(zone.id, vec3(zone.coords.x, zone.coords.y, zone.coords.z), 0.7, {
+            name = zone.id,
+            useZ = true,
+            debugPoly = false,
+        }, {
+            options = {
+                {
+                    icon = 'fa-solid fa-hand',
+                    label = zone.label,
+                    action = function()
+                        showImage(zone.link)
+                    end,
+                },
             },
-        },
-        distance = 2.5
-    })
+            distance = 2.5
+        })
+    end
 
     menuZones[#menuZones+1] = zone.id
     Locations[zone.id] = zone
@@ -198,7 +236,11 @@ RegisterNetEvent('randol_imageui:client:removeZone', function(zoneId)
 
     for i = 1, #menuZones do
         if menuZones[i] == zoneId then
-            exports['qb-target']:RemoveZone(zoneId)
+            if GetResourceState('ox_target') == 'started' then
+                exports.ox_target:removeZone(zoneId)
+            else
+                exports['qb-target']:RemoveZone(zoneId)
+            end
             table.remove(menuZones, i)
             break
         end
